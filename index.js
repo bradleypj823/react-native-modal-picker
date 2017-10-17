@@ -131,6 +131,9 @@ export default class ModalPicker extends BaseComponent {
         return (
             <View style={[styles.overlayStyle, this.props.overlayStyle]} key={'modalPicker'+(componentIndex++)}>
                 <View style={styles.optionContainer}>
+                    { this.props.title &&
+                    <Text style={{alignItems:'center', justifyContent:'center', textAlign:'center', marginVertical:10, fontSize:20}} >{this.props.title}</Text>
+                    }
                     <ScrollView keyboardShouldPersistTaps>
                         <View style={{paddingHorizontal:10}}>
                             {options}
@@ -168,12 +171,19 @@ export default class ModalPicker extends BaseComponent {
           </Modal>
         );
 
+        let showChildren = true
+        if ( this.props.hideChildren && typeof this.props.hideChildren !== 'undefined' ){
+            showChildren = !this.props.hideChildren
+        }
+
         return (
             <View style={this.props.style}>
                 {dp}
+                { showChildren &&
                 <TouchableOpacity onPress={this.open}>
                     {this.renderChildren()}
                 </TouchableOpacity>
+                }
             </View>
         );
     }
